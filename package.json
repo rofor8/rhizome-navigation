@@ -1,0 +1,11 @@
+{
+  "name": "question",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/rofor8/rofor8.github.io.git",
+  "author": "rofor8 <rofor8@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

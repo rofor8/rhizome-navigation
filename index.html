@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="//unpkg.com/three"></script>
+    <script src="//unpkg.com/3d-force-graph"></script>
+  </head>
+
+    <style> 
+  
+
+  #container {
+  position: relative;
+ 
+}
+
+
+
+.markdown-content {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  right: 5%;
+  background: rgba(0, 0, 0, 0.651);
+  border: 1px solid black;
+  padding: 1px;
+  height:30%;
+  width: 90%;
+  color:blanchedalmond;
+  font-size: 1em;
+  overflow-y: scroll;
+  z-index: 1;
+  pointer-events: none;
+}
+  
+
+  </style>
+
+  <body>
+    <body>
+        <div id="container">
+            <div id="3d-graph"></div>
+            <div id="markdown-content" class="markdown-content"></div>
+        </div>
+    </body>
+    <script>
+    const data = {
+nodes: [
+        {id: 'corridor', markdownFile: 'md/corridor.md', img: 'corridor.jpg'},
+        {id: 'pride', markdownFile: 'md/pride.md', img: 'pride.jpg'},
+        {id: 'deepl', markdownFile: 'md/deepl.md', img: 'deepl.jpg'},
+        {id: 'parish', markdownFile: 'md/parish.md', img: 'parish.jpg'},
+        {id: 'workings', markdownFile: 'md/workings.md', img: 'workings.jpg'},
+        {id: 'postgis', markdownFile: 'md/postgis.md', img: 'postgis.jpg'},
+        {id: 'influxdb', markdownFile: 'md/influxdb.md', img: 'influxdb.jpg'},
+        {id: 'van', markdownFile: 'md/van.md', img: 'van.jpg'},
+        {id: 'qgis', markdownFile: 'md/qgis.md', img: 'qgis.jpg'},
+        {id: 'unzip-sh', markdownFile: 'md/unzip-sh.md', img: 'unzip-sh.jpg'},
+        {id: 'clamp', markdownFile: 'md/clamp.md', img: 'clamp.jpg'},
+        {id: 'vscode', markdownFile: 'md/vscode.md', img: 'vscode.jpg'},
+        {id: 'pudding', markdownFile: 'md/pudding.md', img: 'pudding.jpg'},
+        {id: 'aonb', markdownFile: 'md/aonb.md', img: 'aonb.jpg'},
+        {id: 'least-cost-path', markdownFile: 'md/least-cost-path.md', img: 'least-cost-path.jpg'},
+        {id: 'microclimates', markdownFile: 'md/microclimates.md', img: 'microclimates.jpg'},
+        {id: 'rpict', markdownFile: 'md/rpict.md', img: 'rpict.jpg'},
+        {id: 'catalyst', markdownFile: 'md/catalyst.md', img: 'catalyst.jpg'},
+        {id: 'rclone', markdownFile: 'md/rclone.md', img: 'rclone.jpg'},
+        {id: 'saas', markdownFile: 'md/saas.md', img: 'saas.jpg'},
+        {id: 'parcel', markdownFile: 'md/parcel.md', img: 'parcel.jpg'},
+        {id: 'cisco', markdownFile: 'md/cisco.md', img: 'cisco.jpg'},
+        {id: 'rename-sh', markdownFile: 'md/rename-sh.md', img: 'rename-sh.mdjpg'},
+        {id: 'bristol-city-council', markdownFile: 'md/bristol-city-council.md', img: 'bristol-city-council.jpg'},  
+        {id: 'concentrator', markdownFile: 'md/concentrator.md', img: 'concentrator.jpg'},
+        {id: 'lidar', markdownFile: 'md/lidar.md', img: 'lidar.jpg'},
+        {id: 'sat', markdownFile: 'md/sat.md', img: 'sat.jpg'},
+        {id: 'iaas', markdownFile: 'md/iaas.md', img: 'iaas.jpg'},
+        {id: 'inspire', markdownFile: 'md/inspire.md', img: 'inspire.jpg'},
+        {id: 'solar', markdownFile: 'md/solar.md', img: 'solar.jpg'},
+        {id: 'mastermap', markdownFile: 'md/mastermap.md', img: 'mastermap.jpg'},
+        {id: 'bha', markdownFile: 'md/bha.md', img: 'bha.jpg'},
+        {id: 'radiance', markdownFile: 'md/radiance.md', img: 'radiance.jpg'},
+        {id: 'material', markdownFile: 'md/material.md', img: 'material.jpg'},
+        {id: 'php', markdownFile: 'md/php.md', img: 'php.jpg'},
+        {id: 'network-status', markdownFile: 'md/network-status.md', img: 'network-status.jpg'},
+        {id: 'parish', markdownFile: 'md/parish.md', img: 'parish.jpg'},
+        {id: 'openai', markdownFile: 'md/openai.md', img: 'openai.jpg'},
+        {id: 'windsor', markdownFile: 'md/windsor.md', img: 'windsor.jpg'},
+        {id: 'obd', markdownFile: 'md/obd.md', img: 'obd.jpg'},
+        {id: 'mhz19', markdownFile: 'md/mhz19.md', img: 'mhz19.jpg'},
+        {id: 'coreos-pi', markdownFile: 'md/coreos-pi.md', img: 'coreos-pi.jpg'},
+        {id: 'fedora', markdownFile: 'md/fedora.md', img: 'fedora.md'},
+        {id: 'flat-terrain', markdownFile: 'md/flat-terrain.md', img: 'flat-terrain.jpg'},
+        {id: 'arcgis', markdownFile: 'md/arcgis.md', img: 'arcgis.jpg'},
+        {id: 'bash', markdownFile: 'md/bash.md', img: 'bash.jpg'},
+        {id: 'bha', markdownFile: 'md/bha.md', img: 'bha.jpg'},
+        {id: 'canbus', markdownFile: 'md/canbus.md', img: 'canbus.jpg'},
+        {id: 'sql', markdownFile: 'md/sql.md', img: 'sql.jpg'},
+        {id: 'ruckus', markdownFile: 'md/ruckus.md', img: 'ruckus.jpg'},
+        {id: 'raspberrypi', markdownFile: 'md/raspberrypi.md', img: 'raspberrypi.jpg'},
+        {id: 'qgis', markdownFile: 'md/qgis.md', img: 'qgis.jpg'},
+        {id: 'kvm', markdownFile: 'md/kvm.md', img: 'kvm.jpg'},
+        {id: 'python', markdownFile: 'md/python.md', img: 'python.jpg'},
+        {id: 'mqtt', markdownFile: 'md/mqtt.md', img: 'mqtt.jpg'},
+        {id: 'coreos', markdownFile: 'mh/coreos.md', img: 'coreos.jpg'},
+        {id: 'gdal', markdownFile: 'md/gdal.md', img: 'gdal.jpg'},
+        {id: 'javascript', markdownFile: 'md/javascript.md', img: 'javascript.jpg'},
+        {id: 'mapbox', markdownFile: 'md/mapbox.md', img: 'mapbox.jpg'},
+        {id: 'mikrotik', markdownFile: 'md/mikrotik.md', img: 'mikrotik.jpg'},
+        {id: 'github', markdownFile: 'md/github.md', img: 'github.jpg'},
+        {id: 'grasshopper', markdownFile: 'md/grasshopper.md', img: 'grasshopper.jpg'},
+        {id: 'leaflet', markdownFile: 'md/leaflet.md', img: 'leaflet.jpg'},
+        {id: 'ladybug', markdownFile: 'md/ladybug.md', img: 'ladybug.jpg'},
+        {id: 'window', markdownFile: 'md/window.md', img: 'window.jpg'},
+        {id: 'sun', markdownFile: 'md/sun.md', img: 'sun.jpg'},
+        {id: 'stage', markdownFile: 'md/stage.md', img: 'stage.jpg'},
+        {id: 'sun', markdownFile: 'md/sun.md', img: 'sun.jpg'},
+        {id: 'node', markdownFile: 'md/node.md', img: 'node.jpg'},
+        {id: 'egg', markdownFile: 'md/egg.md', img: 'egg.jpg'},
+        {id: 'dymaxion', markdownFile: 'md/dymaxion.md', img: 'dymaxion.jpg'},
+        {id: 'egg', markdownFile: 'md/egg.md', img: 'egg.jpg'},
+        {id: 'podman', markdownFile: 'md/podman.md', img: 'podman.jpg'}
+
+    ],
+    links: [
+      { source: 'qgis', target: 'fedora' },
+      { source: 'kvm', target: 'cisco' },
+      { source: 'python', target: 'mqtt' },
+      { source: 'fedora', target: 'coreos' },
+      { source: 'influxdb', target: 'mqtt' },
+      { source: 'javascript', target: 'leaflet' },
+      { source: 'postgis', target: 'mastermap' },
+      { source: 'qgis', target: 'postgis' },
+      { source: 'postgis', target: 'gdal' },
+      { source: 'python', target: 'gdal' },
+      { source: 'podman', target: 'influxdb' },
+      { source: 'mapbox', target: 'arcgis' },
+      { source: 'podman', target: 'fedora' },
+      { source: 'lidar', target: 'gdal' },
+      { source: 'qgis', target: 'lidar' },
+      { source: 'mastermap', target: 'postgis' },
+      { source: 'bash', target: 'fedora' },
+      { source: 'leaflet', target: 'mapbox' },
+      { source: 'qgis', target: 'fedora' },
+      { source: 'kvm', target: 'fedora' },
+      { source: 'qgis', target: 'postgis' },
+      { source: 'mqtt', target: 'postgis' },
+      { source: 'qgis', target: 'postgis' },
+      { source: 'python', target: 'postgis' },
+      { source: 'mikrotik', target: 'fedora' },
+      { source: 'leaflet', target: 'github' },
+      { source: 'qgis', target: 'fedora' },
+      { source: 'coreos', target: 'gdal' },
+      { source: 'mapbox', target: 'postgis' },
+      { source: 'grasshopper', target: 'postgis' },
+      { source: 'ruckus', target: 'mikrotik' },
+      { source: 'mikrotik', target: 'mikrotik' },
+      { source: 'ladybug', target: 'grasshopper' },
+      { source: 'canbus', target: 'mqtt' },
+      { source: 'sql', target: 'mastermap' },
+      { source: 'sql', target: 'lidar' },
+      { source: 'python', target: 'mastermap' },
+      { source: 'sql', target: 'postgis' },
+      { source: 'python', target: 'influxdb' },
+      { source: 'windsor', target: 'arcgis' },
+      { source: 'window', target: 'grasshopper' },
+      { source: 'sun', target: 'ladybug' },
+      { source: 'corridor', target: 'mastermap' },
+      { source: 'corridor', target: 'qgis' },
+      { source: 'corridor', target: 'sql' },
+      { source: 'van', target: 'grasshopper' },
+      { source: 'stage', target: 'grasshopper' },
+      { source: 'pudding', target: 'qgis' },
+      { source: 'parish', target: 'sql' },
+      { source: 'parish', target: 'mastermap' },
+      { source: 'parcel', target: 'sql' },
+      { source: 'node', target: 'grasshopper' },
+      { source: 'egg', target: 'grasshopper' },
+      { source: 'dymaxion', target: 'grasshopper' },
+      { source: 'concentrator', target: 'grasshopper' },
+      { source: 'concentrator', target: 'ladybug' },
+      { source: 'clamp', target: 'ruckus' },
+      { source: 'mikrotik', target: 'ruckus' },
+      { source: 'mikrotik', target: 'cisco' },
+      { source: 'bha', target: 'qgis' },
+      { source: 'aonb', target: 'qgis' }
+    ]
+}
+
+      // Initialize the 3D force graph
+      const graph = ForceGraph3D()
+        (document.getElementById('3d-graph'))
+        .nodeThreeObject(({ img }) => {
+    const imgTexture = new THREE.TextureLoader().load(`./imgs/${img}`);
+    const material = new THREE.SpriteMaterial({ map: imgTexture });
+    const sprite = new THREE.Sprite(material);
+    sprite.scale.set(12, 12);
+    return sprite;
+  })
+        .graphData(data)
+        .nodeAutoColorBy('id')
+        .onNodeClick(node => {
+          // Read the markdown file and display its contents in a div element
+          fetch(node.markdownFile)
+            .then(response => response.text())
+            .then(text => {
+              const html = marked.parse(text);
+              document.getElementById('markdown-content').innerHTML = html;
+            })
+
+// test
+                     // Aim at node from outside it
+          const distance = 60;
+          const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
+
+          const newPos = node.x || node.y || node.z
+            ? { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }
+            : { x: 0, y: 0, z: distance }; // special case if node is in (0,0,0)
+
+          graph.cameraPosition(
+            newPos, // new position
+            node, // lookAt ({ x, y, z })
+            3000  // ms transition duration
+          );
+            
+        })
+
+
+
+        .backgroundColor('#333') // Set background color to dark grey
+  .linkWidth(3) // Set link width to 2
+  .linkColor('#FF1CE3')
+  .linkOpacity([0.2])
+  .linkCurvature([0])
+  .linkCurveRotation([0])
+  
+    </script>
+  </body>
+</html>
